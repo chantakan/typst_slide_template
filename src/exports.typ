@@ -36,3 +36,6 @@
 #import "magic.typ"
 #import "pdfpc.typ"
 #import "components.typ"
+#import "@preview/cetz:0.3.2"
+#import "@preview/fletcher:0.5.4" as fletcher: diagram, node, edge
+#import "@preview/ctheorems:1.1.3": *

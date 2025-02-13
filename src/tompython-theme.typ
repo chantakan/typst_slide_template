@@ -287,8 +287,8 @@
 ) = {
   // 言語設定を最初に行う
   set text(size: 20pt)
-  set heading(numbering: "1.1.1")
-  // show heading.where(level: 1): set heading(numbering: "01")
+  set heading(numbering: "1.1")
+  
 
   show: touying-slides.with(
     config-page(
@@ -461,3 +461,4 @@
       style: "ieee")
   }
 }
+
