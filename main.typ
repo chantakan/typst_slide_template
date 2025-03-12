@@ -91,40 +91,9 @@
 #slide[
   #link("https://github.com/cetz-package/cetz")[`CeTz`]や#link("https://typst.app/universe/package/fletcher/")[`Fletcher`]を利用することで図式を描画することができる.
 
-  ```typst
-  #cetz.canvas({
-    import cetz.draw: *
-    
-  circle((0, 0), fill: red, stroke: blue)
-
-
-  line((0, 0), (1, 1), stroke: green)
-  })
-  ```
-
-  #cetz.canvas({
-    import cetz.draw: *
-    
-  circle((0, 0), fill: red, stroke: blue)
-
-
-  line((0, 0), (1, 1), stroke: green)
-  })
+  
 
   #pagebreak()
-
-  ```typst
-  #diagram(
-	spacing: (1em, 3em),
-	$ & tau^* (bold(A B)^n R slash.double R^times) edge(->) & bold(B)^n R slash.double R^times \ X edge("ur", "-->") edge("=") & X edge(->, tau) edge("u", <-) & bold(B) R^times edge("u", <-) $, edge((2,1), "d,ll,u", "->>", text(blue, $Gamma^*_R$), stroke: blue, label-side: center)
-  )
-  ```
-  #diagram(
-	spacing: (1em, 3em),
-	$ & tau^* (bold(A B)^n R slash.double R^times) edge(->) & bold(B)^n R slash.double R^times \
-		X edge("ur", "-->") edge("=") & X edge(->, tau) edge("u", <-) & bold(B) R^times edge("u", <-) $,
-	edge((2,1), "d,ll,u", "->>", text(blue, $Gamma^*_R$), stroke: blue, label-side: center)
-)
   ]
 
 == 最後に

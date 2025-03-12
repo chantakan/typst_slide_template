@@ -93,9 +93,12 @@
   let body = {
     set align(center)
     stack(
-      spacing: 3em,
+      spacing: 2em,
       if info.title != none {
         text(size: 48pt, weight: "bold", fill: self.colors.primary, info.title)
+      },
+      if info.subtitle != none {
+        text(size: 28pt, weight: "bold", fill: self.colors.primary, info.subtitle)
       },
       if info.author != none {
         text(fill: self.colors.primary-light, size: 28pt, weight: "regular", info.author)
@@ -119,7 +122,14 @@
 /// - config (dictionary): The configuration of the slide. You can use `config-xxx` to set the configuration of the slide. For more configurations, you can use `utils.merge-dicts` to merge them.
 ///
 /// - leading (length): The leading of paragraphs in the outline. Default is `50pt`.
-#let outline-slide(config: (:), leading: 50pt) = touying-slide-wrapper(self => {
+
+#let outline-slide(
+  config: (:),
+  leading: 50pt,
+  numbered: true,
+  level: none,
+  ..args,
+) = touying-slide-wrapper(self => {
   set text(size: 30pt, fill: self.colors.primary)
   set par(leading: leading)
 
@@ -159,11 +169,21 @@
         {
           set par(leading: leading)
           set text(weight: "bold")
+          components.adaptive-columns(
+        text(
+          fill: self.colors.primary,
+          weight: "bold",
           components.custom-progressive-outline(
-            level: none,
+            level: level,
+            alpha: self.store.alpha,
+            indent: (0em, 1em),
+            vspace: (.4em,),
+            numbered: (numbered,),
             depth: 1,
-            numbered: (true,),
-          )
+            ..args.named(),
+          ),
+        ),
+      ) + args.pos().sum(default: none)
         },
       ),
     )
@@ -176,9 +196,12 @@
       margin: 0em,
     ),
   )
-  touying-slide(self: self, config: config, body)
+  touying-slide(
+    self: self,
+    config: config,
+    body,
+  )
 })
-
 
 /// New section slide for the presentation. You can update it by updating the `new-section-slide-fn` argument for `config-common` function.
 ///
@@ -189,41 +212,14 @@
 /// - level (int): The level of the heading.
 ///
 /// - body (content): The body of the section. It will be passed by touying automatically.
-#let new-section-slide(config: (:), level: 1, body) = touying-slide-wrapper(self => {
-  let slide-body = {
-    stack(
-      dir: ttb,
-      spacing: 12%,
-      align(
-        center,
-        text(
-          fill: self.colors.primary,
-          size: 166pt,
-          utils.display-current-heading-number(level: level),
-        ),
-      ),
-      align(
-        center,
-        text(
-          fill: self.colors.primary,
-          size: 60pt,
-          weight: "bold",
-          utils.display-current-heading(level: level, numbered: false),
-        ),
-      ),
-    )
-    body
-  }
-  self = utils.merge-dicts(
-    self,
-    config-page(
-      margin: (left: 0%, right: 0%, top: 20%, bottom: 0%),
-      background: utils.call-or-display(self, self.store.background),
-    ),
-  )
-  touying-slide(self: self, config: config, slide-body)
-})
 
+#let new-section-slide(
+  config: (:),
+  level: 1,
+  numbered: true,
+  ..args,
+  body,
+) = outline-slide(config: config, level: level, numbered: numbered, ..args, body)
 
 /// Focus on some content.
 ///
@@ -276,6 +272,8 @@
 /// - footer (content): The footer of the slides. Default is `context utils.slide-counter.display()`.
 #let tompython-theme(
   aspect-ratio: "16-9",
+  align: horizon,
+  alpha: 20%,
   header: self => utils.display-current-heading(depth: self.slide-level ),
   footer: context utils.slide-counter.display(),
   footer-left: self => utils.display-current-heading(depth: 1 ),
@@ -287,8 +285,8 @@
 ) = {
   // 言語設定を最初に行う
   set text(size: 20pt)
-  set heading(numbering: "1.1")
-  
+  set heading(numbering: "1.1.1")
+  // show heading.where(level: 1): set heading(numbering: "01")
 
   show: touying-slides.with(
     config-page(
@@ -316,6 +314,7 @@
     // save the variables for later use
     config-store(
       align: align,
+      alpha: alpha,
       header: header,
       footer-left: footer-left,
       footer-right: footer-right,
@@ -462,3 +461,6 @@
   }
 }
 
+
+#import "@preview/cetz:0.2.2"
+#import "@preview/fletcher:0.4.5" as fletcher: diagram, node, edge
