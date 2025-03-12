@@ -34,7 +34,7 @@ Using [Pympress](https://github.com/Cimbali/pympress), you can prepare a "PDF wi
 2. Install [Pympress](https://github.com/Cimbali/pympress)
   - Ubuntu
   ```bash
-      apt-get install pympress libgtk-3-0 libpoppler-glib8 libcairo2 python3-gi python3-gi-cairo gobject-introspection libgirepository-1.0-1 gir1.2-gtk-3.0 gir1.2-poppler-0.18
+  apt-get install pympress libgtk-3-0 libpoppler-glib8 libcairo2 python3-gi python3-gi-cairo gobject-introspection libgirepository-1.0-1 gir1.2-gtk-3.0 gir1.2-poppler-0.18
   ```
 
   - macOS
@@ -43,7 +43,7 @@ Using [Pympress](https://github.com/Cimbali/pympress), you can prepare a "PDF wi
   brew install pympress
   ```
 
-  - Windows Package Manager (winget) ![winget version badge][winget_version]
+  - Windows Package Manager (winget)
 
   ```batch
   winget install pympress
